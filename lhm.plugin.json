@@ -1,0 +1,423 @@
+{
+  "identifier": "cookieyes-mcp",
+  "name": "CookieYes",
+  "version": "1.0.0",
+  "description": "Manage cookie banners, run cookie scans and check GDPR/CCPA compliance from your AI assistant.",
+  "author": "CookieYes",
+  "authorUrl": "https://www.cookieyes.com",
+  "homepage": "https://www.cookieyes.com/documentation/mcp-server/",
+  "cloudEndpoint": "https://app.cookieyes.com/mcp",
+  "icon": "https://www.cookieyes.com/cookieyes-logo.png",
+  "tags": [
+    "cookie-consent",
+    "gdpr",
+    "ccpa",
+    "privacy",
+    "compliance",
+    "cookie-banner",
+    "cookie-scanner"
+  ],
+  "tools": [
+    {
+      "name": "list_domains",
+      "description": "List all websites in the CookieYes account with their banner and compliance status.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "type": "string",
+            "description": "Search websites by URL or organisation name"
+          },
+          "orgId": {
+            "type": "string",
+            "description": "Organisation ID to paginate (from a previous call)"
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "perPage": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Items per page (default 50)"
+          }
+        }
+      }
+    },
+    {
+      "name": "get_website_details",
+      "description": "Get details for a specific website, including its plan's cookie scan limit.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^\\d+$",
+            "description": "Numeric website ID from list_domains"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "get_banner_status",
+      "description": "Check whether the cookie consent banner is live on a website, when it was last detected, and whether it has been disabled.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "websiteId": {
+            "type": "string",
+            "pattern": "^\\d+$",
+            "description": "Numeric website ID from list_domains"
+          }
+        },
+        "required": [
+          "websiteId"
+        ]
+      }
+    },
+    {
+      "name": "get_compliance_status",
+      "description": "Get a website's compliance setup: which privacy laws are enabled (GDPR, CCPA and others), geo-targeting and IAB framework status.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "websiteId": {
+            "type": "string",
+            "pattern": "^\\d+$",
+            "description": "Numeric website ID from list_domains"
+          }
+        },
+        "required": [
+          "websiteId"
+        ]
+      }
+    },
+    {
+      "name": "get_embed_code",
+      "description": "Get the script tag that installs the CookieYes banner on a website.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "websiteId": {
+            "type": "string",
+            "pattern": "^\\d+$",
+            "description": "Numeric website ID from list_domains"
+          }
+        },
+        "required": [
+          "websiteId"
+        ]
+      }
+    },
+    {
+      "name": "list_banners",
+      "description": "List the cookie consent banners configured for a website, with law, status, layout, position and theme.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "websiteId": {
+            "type": "string",
+            "pattern": "^\\d+$",
+            "description": "Numeric website ID from list_domains"
+          }
+        },
+        "required": [
+          "websiteId"
+        ]
+      }
+    },
+    {
+      "name": "trigger_cookie_scan",
+      "description": "Start a cookie scan for a website: a normal crawl up to the plan limit, or a custom scan of specific URLs.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "websiteId": {
+            "type": "string",
+            "pattern": "^\\d+$",
+            "description": "Numeric website ID from list_domains"
+          },
+          "scanType": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "custom"
+            ]
+          },
+          "pageLimit": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Maximum pages to scan"
+          },
+          "includeUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "excludeUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "websiteId",
+          "scanType",
+          "pageLimit"
+        ]
+      }
+    },
+    {
+      "name": "get_scan_results",
+      "description": "Get the results of the latest completed cookie scan, with cookies grouped by category.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "websiteId": {
+            "type": "string",
+            "pattern": "^\\d+$",
+            "description": "Numeric website ID from list_domains"
+          }
+        },
+        "required": [
+          "websiteId"
+        ]
+      }
+    },
+    {
+      "name": "update_banner_colours",
+      "description": "Change a banner's theme (light, dark, auto-generated) or individual element colours. Asks the user to confirm the website and banner before changing anything.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "websiteId": {
+            "type": "string",
+            "pattern": "^\\d+$",
+            "description": "Numeric website ID from list_domains"
+          },
+          "bannerId": {
+            "type": "integer",
+            "description": "Banner ID from list_banners"
+          },
+          "theme": {
+            "type": "string",
+            "enum": [
+              "light",
+              "dark",
+              "custom",
+              "recommended"
+            ]
+          },
+          "bannerBackground": {
+            "type": "string",
+            "description": "Banner background colour (hex, e.g. #ffffff)"
+          },
+          "bannerBorderColor": {
+            "type": "string",
+            "description": "Banner border colour (hex, e.g. #ffffff)"
+          },
+          "titleColor": {
+            "type": "string",
+            "description": "Banner title text colour (hex, e.g. #ffffff)"
+          },
+          "descriptionColor": {
+            "type": "string",
+            "description": "Banner body text colour (hex, e.g. #ffffff)"
+          },
+          "acceptButtonBg": {
+            "type": "string",
+            "description": "GDPR Accept button background (hex, e.g. #ffffff)"
+          },
+          "acceptButtonText": {
+            "type": "string",
+            "description": "GDPR Accept button text (hex, e.g. #ffffff)"
+          },
+          "acceptButtonBorderColor": {
+            "type": "string",
+            "description": "GDPR Accept button border (hex, e.g. #ffffff)"
+          },
+          "rejectButtonBg": {
+            "type": "string",
+            "description": "GDPR Reject button background (hex, e.g. #ffffff)"
+          },
+          "rejectButtonText": {
+            "type": "string",
+            "description": "GDPR Reject button text (hex, e.g. #ffffff)"
+          },
+          "rejectButtonBorderColor": {
+            "type": "string",
+            "description": "GDPR Reject button border (hex, e.g. #ffffff)"
+          },
+          "customiseButtonBg": {
+            "type": "string",
+            "description": "GDPR Customise button background (hex, e.g. #ffffff)"
+          },
+          "customiseButtonText": {
+            "type": "string",
+            "description": "GDPR Customise button text (hex, e.g. #ffffff)"
+          },
+          "customiseButtonBorderColor": {
+            "type": "string",
+            "description": "GDPR Customise button border (hex, e.g. #ffffff)"
+          },
+          "cookiePolicyLinkBg": {
+            "type": "string",
+            "description": "GDPR Cookie Policy link background (hex, e.g. #ffffff)"
+          },
+          "cookiePolicyLinkText": {
+            "type": "string",
+            "description": "GDPR Cookie Policy link text (hex, e.g. #ffffff)"
+          },
+          "cookiePolicyLinkBorderColor": {
+            "type": "string",
+            "description": "GDPR Cookie Policy link border (hex, e.g. #ffffff)"
+          },
+          "savePreferencesButtonBg": {
+            "type": "string",
+            "description": "GDPR Save My Preferences button background (hex, e.g. #ffffff)"
+          },
+          "savePreferencesButtonText": {
+            "type": "string",
+            "description": "GDPR Save My Preferences button text (hex, e.g. #ffffff)"
+          },
+          "savePreferencesButtonBorderColor": {
+            "type": "string",
+            "description": "GDPR Save My Preferences button border (hex, e.g. #ffffff)"
+          },
+          "preferenceCenterToggleEnabledBg": {
+            "type": "string",
+            "description": "GDPR Preference Center toggle (enabled) (hex, e.g. #ffffff)"
+          },
+          "preferenceCenterToggleDisabledBg": {
+            "type": "string",
+            "description": "GDPR Preference Center toggle (disabled) (hex, e.g. #ffffff)"
+          },
+          "googlePrivacyLinkBg": {
+            "type": "string",
+            "description": "GDPR Google Privacy link background (hex, e.g. #ffffff)"
+          },
+          "googlePrivacyLinkText": {
+            "type": "string",
+            "description": "GDPR Google Privacy link text (hex, e.g. #ffffff)"
+          },
+          "googlePrivacyLinkBorderColor": {
+            "type": "string",
+            "description": "GDPR Google Privacy link border (hex, e.g. #ffffff)"
+          },
+          "doNotSellLinkText": {
+            "type": "string",
+            "description": "CCPA Do Not Sell link text (hex, e.g. #ffffff)"
+          },
+          "optOutCheckboxEnabledBg": {
+            "type": "string",
+            "description": "CCPA opt-out checkbox (enabled) (hex, e.g. #ffffff)"
+          },
+          "optOutCheckboxDisabledBg": {
+            "type": "string",
+            "description": "CCPA opt-out checkbox (disabled) (hex, e.g. #ffffff)"
+          },
+          "cancelButtonBg": {
+            "type": "string",
+            "description": "CCPA Cancel button background (hex, e.g. #ffffff)"
+          },
+          "cancelButtonText": {
+            "type": "string",
+            "description": "CCPA Cancel button text (hex, e.g. #ffffff)"
+          },
+          "cancelButtonBorderColor": {
+            "type": "string",
+            "description": "CCPA Cancel button border (hex, e.g. #ffffff)"
+          },
+          "optOutSaveButtonBg": {
+            "type": "string",
+            "description": "CCPA Save My Preferences button background (hex, e.g. #ffffff)"
+          },
+          "optOutSaveButtonText": {
+            "type": "string",
+            "description": "CCPA Save My Preferences button text (hex, e.g. #ffffff)"
+          },
+          "optOutSaveButtonBorderColor": {
+            "type": "string",
+            "description": "CCPA Save My Preferences button border (hex, e.g. #ffffff)"
+          },
+          "revisitButtonBg": {
+            "type": "string",
+            "description": "Revisit Consent button background (hex, e.g. #ffffff)"
+          },
+          "blockedContentBg": {
+            "type": "string",
+            "description": "Blocked-content placeholder background (hex, e.g. #ffffff)"
+          },
+          "blockedContentText": {
+            "type": "string",
+            "description": "Blocked-content placeholder text (hex, e.g. #ffffff)"
+          },
+          "blockedContentBorderColor": {
+            "type": "string",
+            "description": "Blocked-content placeholder border (hex, e.g. #ffffff)"
+          }
+        },
+        "required": [
+          "websiteId",
+          "bannerId"
+        ]
+      }
+    },
+    {
+      "name": "update_banner_layout",
+      "description": "Change a banner's layout (box, banner or popup), position and preference-centre style. Asks the user to confirm the website and banner before changing anything.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "websiteId": {
+            "type": "string",
+            "pattern": "^\\d+$",
+            "description": "Numeric website ID from list_domains"
+          },
+          "bannerId": {
+            "type": "integer",
+            "description": "Banner ID from list_banners"
+          },
+          "layout": {
+            "type": "string",
+            "enum": [
+              "banner",
+              "box",
+              "popup"
+            ]
+          },
+          "position": {
+            "type": "string",
+            "enum": [
+              "bottom",
+              "bottom-left",
+              "bottom-right",
+              "top",
+              "top-left",
+              "top-right",
+              "center"
+            ]
+          },
+          "preferenceCenterType": {
+            "type": "string",
+            "enum": [
+              "center",
+              "pushdown",
+              "sidebar-left",
+              "sidebar-right"
+            ]
+          }
+        },
+        "required": [
+          "websiteId",
+          "bannerId"
+        ]
+      }
+    }
+  ]
+}
