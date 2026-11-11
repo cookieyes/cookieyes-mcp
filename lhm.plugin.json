@@ -1,7 +1,7 @@
 {
   "identifier": "cookieyes-mcp",
   "name": "CookieYes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Manage cookie banners, run cookie scans and check GDPR/CCPA compliance from your AI assistant.",
   "author": "CookieYes",
   "authorUrl": "https://www.cookieyes.com",
