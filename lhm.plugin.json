@@ -1,21 +1,24 @@
 {
   "identifier": "cookieyes-mcp",
   "name": "CookieYes",
-  "version": "1.0.1",
-  "description": "Manage cookie banners, run cookie scans and check GDPR/CCPA compliance from your AI assistant.",
+  "version": "1.1.0",
+  "description": "Manage cookie consent banners, run cookie scans and check GDPR/CCPA compliance from your AI assistant. Hosted server with OAuth sign-in, works on every CookieYes plan including Free.",
   "author": "CookieYes",
   "authorUrl": "https://www.cookieyes.com",
   "homepage": "https://www.cookieyes.com/documentation/mcp-server/",
   "cloudEndpoint": "https://app.cookieyes.com/mcp",
   "icon": "https://www.cookieyes.com/cookieyes-logo.png",
   "tags": [
-    "cookie-consent",
-    "gdpr",
     "ccpa",
-    "privacy",
+    "cmp",
     "compliance",
+    "consent-management",
     "cookie-banner",
-    "cookie-scanner"
+    "cookie-consent",
+    "cookie-scanner",
+    "gdpr",
+    "iab-tcf",
+    "privacy"
   ],
   "tools": [
     {
@@ -418,6 +421,32 @@
           "bannerId"
         ]
       }
+    }
+  ],
+  "prompts": [
+    {
+      "name": "check_banner_setup",
+      "description": "Check if the cookie consent banner is active on a website"
+    },
+    {
+      "name": "discover_cookies",
+      "description": "Scan a website to discover cookies and trackers"
+    },
+    {
+      "name": "check_compliance",
+      "description": "Check the compliance configuration for a website"
+    },
+    {
+      "name": "monitor_domains",
+      "description": "Check banner status across all domains"
+    },
+    {
+      "name": "update_banner_theme",
+      "description": "Change the banner theme or colours"
+    },
+    {
+      "name": "customise_banner_layout",
+      "description": "Change the banner layout, position, or preference centre style"
     }
   ]
 }
