@@ -1,5 +1,5 @@
 {
-  "identifier": "cookieyes-mcp",
+  "identifier": "cookieyes-cookieyes-mcp",
   "name": "CookieYes",
   "version": "1.1.0",
   "description": "Manage cookie consent banners, run cookie scans and check GDPR/CCPA compliance from your AI assistant. Hosted server with OAuth sign-in, works on every CookieYes plan including Free.",
