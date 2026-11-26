@@ -10,6 +10,8 @@
 [Get a free account](https://www.cookieyes.com) ·
 [Support](https://www.cookieyes.com/contact/)
 
+[![CookieYes MCP connector](https://glama.ai/mcp/connectors/com.cookieyes/mcp/badges/score.svg)](https://glama.ai/mcp/connectors/com.cookieyes/mcp)
+
 </div>
 
 ---
