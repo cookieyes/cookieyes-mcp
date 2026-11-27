@@ -28,11 +28,15 @@ to run another client's commands (such as `claude mcp login`).
 
 Cline's MCP settings file is:
 
-- **Cline extension (VS Code):** `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
-  on macOS, `%APPDATA%/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json` on Windows,
-  `~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json` on Linux. The user can
-  also open it from the Cline panel: **MCP Servers** → **Configure** → **Configure MCP Servers**.
-- **Cline CLI:** `~/.cline/data/settings/cline_mcp_settings.json` (or the path in `CLINE_MCP_SETTINGS_PATH`)
+- **Cline 4.x (VS Code extension and CLI):** `~/.cline/data/settings/cline_mcp_settings.json`, or the path in the
+  `CLINE_MCP_SETTINGS_PATH` environment variable if it is set. Use this file. Cline creates it with
+  `{"mcpServers": {}}` on first start, so if it exists, it is the right one.
+- **Older Cline (3.x) only:** the extension's global storage, for example
+  `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json` on
+  macOS. Use this only if `~/.cline/data/settings/cline_mcp_settings.json` does not exist. Never create this folder.
+
+If unsure, ask the user to open the file from the Cline panel (**MCP Servers** → **Configure** → **Configure MCP
+Servers**); that always opens the file Cline actually reads.
 
 Add this entry under `mcpServers` in that file, keeping any servers already there:
 
