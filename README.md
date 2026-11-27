@@ -186,6 +186,33 @@ Cursor calls MCP tools in **Agent** mode.
 </details>
 
 <details>
+<summary><b>Cline</b></summary>
+
+In the Cline panel, click the **MCP Servers** icon, open the **Remote Servers** tab and enter:
+
+- **Server Name:** `cookieyes`
+- **Server URL:** `https://app.cookieyes.com/mcp`
+- **Transport Type:** **Streamable HTTP**
+
+Click **Add Server**, then complete the CookieYes sign-in in your browser. Or add it to `cline_mcp_settings.json`
+(**Configure** tab → **Configure MCP Servers**):
+
+```json
+{
+  "mcpServers": {
+    "cookieyes": {
+      "type": "streamableHttp",
+      "url": "https://app.cookieyes.com/mcp"
+    }
+  }
+}
+```
+
+With the Cline CLI, run `cline mcp` and choose **Authorize OAuth** for `cookieyes`.
+
+</details>
+
+<details>
 <summary><b>Visual Studio Code</b></summary>
 
 Run **MCP: Add Server** from the Command Palette, choose **HTTP**, and paste the endpoint. Or edit `mcp.json` directly:
@@ -306,7 +333,8 @@ English.
 
 ## About this repository
 
-This repository holds the public listing information for MCP directories such as LobeHub (`lhm.plugin.json`). It does
+This repository holds the public listing information for MCP directories such as LobeHub (`lhm.plugin.json`) and
+setup instructions for AI agents ([llms-install.md](llms-install.md)). It does
 not contain the server's source code; the server is operated by CookieYes Limited.
 
 ## License
