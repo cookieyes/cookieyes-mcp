@@ -22,7 +22,19 @@ Tell the user they need:
 
 ## Setup for Cline
 
-Add this entry under `mcpServers` in `cline_mcp_settings.json`, keeping any servers already there:
+Configure **Cline's own MCP settings only**. Do not edit the configuration of any other client (for example
+`~/.claude/settings.json`, `~/.claude.json`, `.vscode/mcp.json`, Cursor or Windsurf files), and do not tell the user
+to run another client's commands (such as `claude mcp login`).
+
+Cline's MCP settings file is:
+
+- **Cline extension (VS Code):** `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+  on macOS, `%APPDATA%/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json` on Windows,
+  `~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json` on Linux. The user can
+  also open it from the Cline panel: **MCP Servers** → **Configure** → **Configure MCP Servers**.
+- **Cline CLI:** `~/.cline/data/settings/cline_mcp_settings.json` (or the path in `CLINE_MCP_SETTINGS_PATH`)
+
+Add this entry under `mcpServers` in that file, keeping any servers already there:
 
 ```json
 {
@@ -44,7 +56,9 @@ The user can also add it from the Cline panel: **MCP Servers** → **Remote Serv
 
 ## Sign-in
 
-After the server is added, Cline opens a browser window to CookieYes. Ask the user to log in, review the permissions
+Cline handles the OAuth sign-in itself; you do not need to complete it from the chat. After the server is added (if
+Cline does not prompt automatically, the user clicks **Authenticate** next to `cookieyes` in the **MCP Servers** panel),
+Cline opens a browser window to CookieYes. Ask the user to log in, review the permissions
 and click **Allow**. When the page says **Your CookieYes account is now connected**, they can return to Cline. With the
 Cline CLI, run `cline mcp` and choose **Authorize OAuth** for `cookieyes`.
 
