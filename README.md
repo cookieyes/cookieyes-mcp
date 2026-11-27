@@ -11,6 +11,7 @@
 [Support](https://www.cookieyes.com/contact/)
 
 [![CookieYes MCP connector](https://glama.ai/mcp/connectors/com.cookieyes/mcp/badges/score.svg)](https://glama.ai/mcp/connectors/com.cookieyes/mcp)
+[![mcptry](https://mcptry.com/badge/com.cookieyes/mcp)](https://mcptry.com/servers/com.cookieyes/mcp)
 
 </div>
 
